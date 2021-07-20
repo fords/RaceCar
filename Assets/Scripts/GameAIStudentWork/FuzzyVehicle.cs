@@ -65,9 +65,9 @@ namespace GameAICourse
 
 		private FuzzySet<FutureState> GetFutureSet()
 		{
-			IMembershipFunction leftFx = new ShoulderMembershipFunction(-1f, new Coords(-1f, 1f), new Coords(-0.3f, 0f), 1f);
-			IMembershipFunction middleFx = new TrapezoidMembershipFunction(new Coords(-0.45f, 0f), new Coords(-0.30f, 1f), new Coords(0.30f, 1f), new Coords(0.45f, 0f));
-			IMembershipFunction rightFx = new ShoulderMembershipFunction(-1f, new Coords(-0.3f, 0f), new Coords(1f, 1f), 1f);
+			IMembershipFunction leftFx = new ShoulderMembershipFunction(-1f, new Coords(-1f, 1f), new Coords(-0.2f, 0f), 1f);
+			IMembershipFunction middleFx = new TrapezoidMembershipFunction(new Coords(-0.35f, 0f), new Coords(-0.25f, 1f), new Coords(0.25f, 1f), new Coords(0.35f, 0f));
+			IMembershipFunction rightFx = new ShoulderMembershipFunction(-1f, new Coords(0.2f, 0f), new Coords(1f, 1f), 1f);
 
 			FuzzySet<FutureState> set = new FuzzySet<FutureState>();
 			set.Set(new FuzzyVariable<FutureState>(FutureState.Left, leftFx));
@@ -96,10 +96,16 @@ namespace GameAICourse
 			// rule 0: if negative, turn left
 			rules[0] = SteeringDirection.Left.Expr().Then(SteeringDirection.Left);
 			rules[1] = SteeringDirection.Middle.Expr().Then(SteeringDirection.Middle); //mid
-			rules[2] = SteeringDirection.Right.Expr().Then(SteeringDirection.Right); // if pos, turn right
+			rules[2] = SteeringDirection.Right.Expr().Then(SteeringDirection.Right);
 			//rules[3] = FutureState.Right.Expr().Then(SteeringDirection.Left); // if curve right , turn left
 			//rules[4] = FutureState.Middle.Expr().Then(SteeringDirection.Middle);
 			//rules[5] = FutureState.Left.Expr().Then(SteeringDirection.Right);
+			//rules[5] = FutureState.Left.Expr().Then(SteeringDirection.Right);
+
+			//rules[6] = ThrottleState.Slow.Expr().Then(ThrottleState.Medium);
+			//rules[7] = ThrottleState.Medium.Expr().Then(ThrottleState.Medium);
+			//rules[8] = ThrottleState.Fast.Expr().Then(ThrottleState.Medium);
+
 			return rules;
 		}
 
@@ -146,7 +152,7 @@ namespace GameAICourse
 			//Steering = fzSteeringRuleSet.Evaluate(fzInputValueSet);
 			//Throttle = fzThrottleRuleSet.Evaluate(fzInputValueSet);
 
-			Throttle = .35f;
+			Throttle = .22f; //.22f
 			Steering = 0f;
 
 			//var currentDirectionSet = this.GetCurrentDirectionSet();
@@ -176,6 +182,7 @@ namespace GameAICourse
 
 			Debug.Log("vehicle position: " + carPosition);
 			Debug.Log(pathTracker.pathCreator.path.GetPointAtDistance(dist).magnitude);
+			Debug.Log("Difference distance btwn car and road " + (transform.position - pathTracker.pathCreator.path.GetPointAtDistance(dist)).magnitude);
 			if (curveAhead > 0)
 			{
 				//distanceFromRoad = Mathf.Sign(angle) * (carPosition - pathTracker.closestPointOnPath);
