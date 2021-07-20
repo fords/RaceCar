@@ -49,8 +49,8 @@ namespace GameAICourse
         {
             //new ShoulderMembershipFunction(-1f, new Coords(-1f, 1f), new Coords(0f, 0f), 1f);
             IMembershipFunction leftFx = new ShoulderMembershipFunction(-1f, new Coords(-1f, 1f), new Coords(0f, 0f), 1f);
-            IMembershipFunction middleFx = new TrapezoidMembershipFunction(new Coords(-0.40f, 0f), new Coords(-0.28f, 1f), new Coords(0.28f, 1f),new Coords(0.40f, 0f));
-            IMembershipFunction rightFx = new ShoulderMembershipFunction(0f, new Coords(0f, 0f), new Coords(1f, 1f), 1f);
+            IMembershipFunction middleFx = new TrapezoidMembershipFunction(new Coords(-0.40f, 0f), new Coords(-0.30f, 1f), new Coords(0.30f, 1f),new Coords(0.40f, 0f));
+            IMembershipFunction rightFx = new ShoulderMembershipFunction(-1f, new Coords(0f, 0f), new Coords(1f, 1f), 1f);
 
             FuzzySet<SteeringDirection> set = new FuzzySet<SteeringDirection>(); // Trying opposite left and right
             set.Set(new FuzzyVariable<SteeringDirection>(SteeringDirection.Left, leftFx));
@@ -200,7 +200,7 @@ namespace GameAICourse
             //float dist = pathTracker.distanceTravelled + Speed * .1f;
             //Debug.Log("distance: " + pathTracker.pathCreator.path.GetPointAtDistance(dist));
 
-            //var left = new ShoulderMembershipFunction(-1f, new Coords(-1f, 1f), new Coords(0f, 0f), 1f);
+            
             //pathTracker.closestPointOnPath
             // recommend you keep the base call at the end, after all your FuzzyVehicle code so that
             // control inputs can be processed properly (Throttle, Steering)
