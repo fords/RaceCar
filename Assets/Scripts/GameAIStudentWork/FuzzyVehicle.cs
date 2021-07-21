@@ -22,7 +22,7 @@ namespace GameAICourse
 		public float DB_steering;
 	
 
-		public enum SteeringDirection { Left = 0, Middle = 1, Right = 2 }
+		public enum SteeringDirection { Left = 0, Middle , Right }
 		public enum ThrottleState { Slow = 0, Medium = 1, Fast = 2 }
 		public enum FutureState { Left = 0, Middle = 1, Right = 2 }
 		//public enum CurrentDirection { Negative = 0, Middle =1, Positive =2 }
@@ -52,12 +52,16 @@ namespace GameAICourse
 		{
 			//new ShoulderMembershipFunction(-1f, new Coords(-1f, 1f), new Coords(0f, 0f), 1f);
 			IMembershipFunction leftFx = new ShoulderMembershipFunction(-1f, new Coords(-1f, 1f), new Coords(0f, 0f), 1f);
-			IMembershipFunction middleFx = new TrapezoidMembershipFunction(new Coords(-0.45f, 0f), new Coords(-0.30f, 1f), new Coords(0.30f, 1f), new Coords(0.45f, 0f));
+			//IMembershipFunction leftSlightFx = new TrapezoidMembershipFunction(new Coords(-0.1f, 0f), new Coords(-0.05f, 1f), new Coords(-.02f, 1f), new Coords(0f, 0f));
+			IMembershipFunction middleFx = new TrapezoidMembershipFunction(new Coords(-0.425f, 0f), new Coords(-0.32f, 1f), new Coords(0.32f, 1f), new Coords(0.425f, 0f));
+			//IMembershipFunction rightSlightFx = new TrapezoidMembershipFunction(new Coords(0f, 0f), new Coords(.02f, 1f), new Coords(.05f, 1f), new Coords(0.10f, 0f));
 			IMembershipFunction rightFx = new ShoulderMembershipFunction(-1f, new Coords(0f, 0f), new Coords(1f, 1f), 1f);
 
 			FuzzySet<SteeringDirection> set = new FuzzySet<SteeringDirection>(); // Trying opposite left and right
 			set.Set(new FuzzyVariable<SteeringDirection>(SteeringDirection.Left, leftFx));
+			//set.Set(new FuzzyVariable<SteeringDirection>(SteeringDirection.Middle, leftSlightFx));
 			set.Set(new FuzzyVariable<SteeringDirection>(SteeringDirection.Middle, middleFx));
+			//set.Set(new FuzzyVariable<SteeringDirection>(SteeringDirection.Middle, rightSlightFx));
 			set.Set(new FuzzyVariable<SteeringDirection>(SteeringDirection.Right, rightFx));
 			return set;
 		}
@@ -66,7 +70,7 @@ namespace GameAICourse
 		private FuzzySet<FutureState> GetFutureSet()
 		{
 			IMembershipFunction leftFx = new ShoulderMembershipFunction(-1f, new Coords(-1f, 1f), new Coords(-0.2f, 0f), 1f);
-			IMembershipFunction middleFx = new TrapezoidMembershipFunction(new Coords(-0.35f, 0f), new Coords(-0.25f, 1f), new Coords(0.25f, 1f), new Coords(0.35f, 0f));
+			IMembershipFunction middleFx = new TrapezoidMembershipFunction(new Coords(-0.33f, 0f), new Coords(-0.22f, 1f), new Coords(0.22f, 1f), new Coords(0.33f, 0f));
 			IMembershipFunction rightFx = new ShoulderMembershipFunction(-1f, new Coords(0.2f, 0f), new Coords(1f, 1f), 1f);
 
 			FuzzySet<FutureState> set = new FuzzySet<FutureState>();
@@ -95,8 +99,11 @@ namespace GameAICourse
 			FuzzyRule<SteeringDirection>[] rules = new FuzzyRule<SteeringDirection>[3];
 			// rule 0: if negative, turn left
 			rules[0] = SteeringDirection.Left.Expr().Then(SteeringDirection.Left);
+			//rules[1] = SteeringDirection.LeftSlight.Expr().Then(SteeringDirection.LeftSlight);
 			rules[1] = SteeringDirection.Middle.Expr().Then(SteeringDirection.Middle); //mid
+			//rules[3] = SteeringDirection.RightSlight.Expr().Then(SteeringDirection.RightSlight);
 			rules[2] = SteeringDirection.Right.Expr().Then(SteeringDirection.Right);
+		
 			//rules[3] = FutureState.Right.Expr().Then(SteeringDirection.Left); // if curve right , turn left
 			//rules[4] = FutureState.Middle.Expr().Then(SteeringDirection.Middle);
 			//rules[5] = FutureState.Left.Expr().Then(SteeringDirection.Right);
@@ -110,6 +117,15 @@ namespace GameAICourse
 		}
 
 
+		private FuzzyRule<ThrottleState>[] GetSpeedRules()
+		{
+			FuzzyRule<ThrottleState>[] rules = new FuzzyRule<ThrottleState>[3];
+			rules[0] = ThrottleState.Slow.Expr().Then(ThrottleState.Medium);
+			rules[1] = ThrottleState.Medium.Expr().Then(ThrottleState.Medium);
+			rules[2] = ThrottleState.Fast.Expr().Then(ThrottleState.Medium);
+			return rules;
+		}
+
 		private FuzzyRuleSet<SteeringDirection> GetDirectionRuleSet(FuzzySet<SteeringDirection> steer)
 		{
 			var rules = this.GetDirectionRules();
@@ -121,7 +137,7 @@ namespace GameAICourse
 		{
 			base.Awake();
 
-			StudentName = "Zey W";
+			StudentName = "Z W";
 
 			// Only the AI can control. No humans allowerd!
 			IsPlayer = false;
@@ -174,7 +190,7 @@ namespace GameAICourse
 
 
 			steeringDirectionSet.Evaluate(distance, inputs);
-			float dist = pathTracker.distanceTravelled + Speed * 1.0f;
+			float dist = pathTracker.distanceTravelled + Speed * 3.2f;
 			//Debug.Log("distance: " + pathTracker.pathCreator.path.GetPointAtDistance(dist));
 			float curveAhead = Vector3.SignedAngle(transform.position, pathTracker.pathCreator.path.GetPointAtDistance(dist), Vector3.up);
 			float curveDistance = Mathf.Sign(curveAhead) * pathTracker.pathCreator.path.GetPointAtDistance(dist).magnitude;
