@@ -59,7 +59,7 @@ namespace Tochas.FuzzyLogic
             this.rules.AddRange(rules);
         }
 
-        public float Evaluate(FuzzyValueSet inputValueSet)
+        public float Evaluate(float curveDistance, FuzzyValueSet inputValueSet)
         {
             if (!this.OutputVarSet.IsValid())
                 return float.NaN;
