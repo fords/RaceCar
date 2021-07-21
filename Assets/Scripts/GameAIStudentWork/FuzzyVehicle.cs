@@ -80,7 +80,7 @@ namespace GameAICourse
 			//new ShoulderMembershipFunction(-1f, new Coords(-1f, 1f), new Coords(0f, 0f), 1f);
 			IMembershipFunction leftFx = new ShoulderMembershipFunction(-1f, new Coords(-1f, 1f), new Coords(0f, 0f), 1f);
 			//IMembershipFunction leftSlightFx = new TrapezoidMembershipFunction(new Coords(-0.1f, 0f), new Coords(-0.05f, 1f), new Coords(-.02f, 1f), new Coords(0f, 0f));
-			IMembershipFunction middleFx = new TrapezoidMembershipFunction(new Coords(-0.5f, 0f), new Coords(-0.25f, 1f), new Coords(0.25f, 1f), new Coords(0.5f, 0f));
+			IMembershipFunction middleFx = new TrapezoidMembershipFunction(new Coords(-0.40f, 0f), new Coords(-0.25f, 1f), new Coords(0.25f, 1f), new Coords(0.40f, 0f));
 			//IMembershipFunction rightSlightFx = new TrapezoidMembershipFunction(new Coords(0f, 0f), new Coords(.02f, 1f), new Coords(.05f, 1f), new Coords(0.10f, 0f));
 			IMembershipFunction rightFx = new ShoulderMembershipFunction(-1f, new Coords(0f, 0f), new Coords(1f, 1f), 1f);
 
@@ -99,7 +99,7 @@ namespace GameAICourse
 			//new ShoulderMembershipFunction(-1f, new Coords(-1f, 1f), new Coords(0f, 0f), 1f);
 			IMembershipFunction leftFx = new ShoulderMembershipFunction(-1f, new Coords(-1f, 1f), new Coords(0f, 0f), 1f);
 			//IMembershipFunction leftSlightFx = new TrapezoidMembershipFunction(new Coords(-0.1f, 0f), new Coords(-0.05f, 1f), new Coords(-.02f, 1f), new Coords(0f, 0f));
-			IMembershipFunction middleFx = new TrapezoidMembershipFunction(new Coords(-0.425f, 0f), new Coords(-0.32f, 1f), new Coords(0.32f, 1f), new Coords(0.425f, 0f));
+			IMembershipFunction middleFx = new TrapezoidMembershipFunction(new Coords(-0.35f, 0f), new Coords(-0.25f, 1f), new Coords(0.25f, 1f), new Coords(0.35f, 0f));
 			//IMembershipFunction rightSlightFx = new TrapezoidMembershipFunction(new Coords(0f, 0f), new Coords(.02f, 1f), new Coords(.05f, 1f), new Coords(0.10f, 0f));
 			IMembershipFunction rightFx = new ShoulderMembershipFunction(-1f, new Coords(0f, 0f), new Coords(1f, 1f), 1f);
 
@@ -117,8 +117,8 @@ namespace GameAICourse
 		{
 
 			IMembershipFunction leftFx = new TrapezoidMembershipFunction(new Coords(-12.5f, 0f), new Coords(-7f, 1f), new Coords(0.5f, 1f), new Coords(0f, 0f));
-			IMembershipFunction middleFx1 = new ShoulderMembershipFunction(-30f, new Coords(-30f, 1f), new Coords(-16.5f, 0f), 30f);
-			IMembershipFunction middleFx2 = new ShoulderMembershipFunction(-30f, new Coords(16.5f, 0f), new Coords(30f, 1f), 30f);
+			IMembershipFunction middleFx1 = new ShoulderMembershipFunction(-30f, new Coords(-30f, 1f), new Coords(-19.5f, 0f), 30f);
+			IMembershipFunction middleFx2 = new ShoulderMembershipFunction(-30f, new Coords(19.5f, 0f), new Coords(30f, 1f), 30f);
 			IMembershipFunction rightFx = new TrapezoidMembershipFunction(new Coords(0f, 0f), new Coords(0.5f, 1f), new Coords(7f, 1f), new Coords(12.5f, 0f));
 
 			FuzzySet<FutureState> set = new FuzzySet<FutureState>();
@@ -244,7 +244,7 @@ namespace GameAICourse
 			//Steering = fzSteeringRuleSet.Evaluate(fzInputValueSet);
 			//Throttle = fzThrottleRuleSet.Evaluate(fzInputValueSet);
 
-			Throttle = .25f; //.22f
+			Throttle = .35f; //.22f
 			Steering = 0f;
 
 			//var currentDirectionSet = this.GetCurrentDirectionSet();
