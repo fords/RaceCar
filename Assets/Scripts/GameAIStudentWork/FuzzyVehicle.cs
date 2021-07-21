@@ -20,9 +20,9 @@ namespace GameAICourse
 	{
 		public float DB_throttle;
 		public float DB_steering;
-	
 
-		public enum SteeringDirection { Left = 0, Middle , Right }
+
+		public enum SteeringDirection { Left = 0, Middle, Right }
 		public enum ThrottleState { Slow = 0, Medium = 1, Fast = 2 }
 		public enum FutureState { Left = 0, Middle = 1, Right = 2 }
 		//public enum CurrentDirection { Negative = 0, Middle =1, Positive =2 }
@@ -69,13 +69,16 @@ namespace GameAICourse
 
 		private FuzzySet<FutureState> GetFutureSet()
 		{
-			IMembershipFunction leftFx = new ShoulderMembershipFunction(-1f, new Coords(-1f, 1f), new Coords(-0.2f, 0f), 1f);
-			IMembershipFunction middleFx = new TrapezoidMembershipFunction(new Coords(-0.33f, 0f), new Coords(-0.22f, 1f), new Coords(0.22f, 1f), new Coords(0.33f, 0f));
-			IMembershipFunction rightFx = new ShoulderMembershipFunction(-1f, new Coords(0.2f, 0f), new Coords(1f, 1f), 1f);
+
+			IMembershipFunction leftFx = new TrapezoidMembershipFunction(new Coords(-14.5f, 0f), new Coords(-7f, 1f), new Coords(0f, 1f), new Coords(2.5f, 0f));
+			IMembershipFunction middleFx1 = new ShoulderMembershipFunction(-20f, new Coords(-20f, 1f), new Coords(-10.5f, 0f), 20f);
+			IMembershipFunction middleFx2 = new ShoulderMembershipFunction(-20f, new Coords(10.5f, 0f), new Coords(20f, 1f), 20f);
+			IMembershipFunction rightFx = new TrapezoidMembershipFunction(new Coords(-2.5f, 0f), new Coords(0f, 1f), new Coords(7f, 1f), new Coords(14.5f, 0f));
 
 			FuzzySet<FutureState> set = new FuzzySet<FutureState>();
 			set.Set(new FuzzyVariable<FutureState>(FutureState.Left, leftFx));
-			set.Set(new FuzzyVariable<FutureState>(FutureState.Middle, middleFx));
+			set.Set(new FuzzyVariable<FutureState>(FutureState.Middle, middleFx1));
+			set.Set(new FuzzyVariable<FutureState>(FutureState.Middle, middleFx2));
 			set.Set(new FuzzyVariable<FutureState>(FutureState.Right, rightFx));
 			return set;
 		}
@@ -96,17 +99,16 @@ namespace GameAICourse
 
 		private FuzzyRule<SteeringDirection>[] GetDirectionRules()
 		{
-			FuzzyRule<SteeringDirection>[] rules = new FuzzyRule<SteeringDirection>[3];
+			FuzzyRule<SteeringDirection>[] rules = new FuzzyRule<SteeringDirection>[6];
 			// rule 0: if negative, turn left
 			rules[0] = SteeringDirection.Left.Expr().Then(SteeringDirection.Left);
-			//rules[1] = SteeringDirection.LeftSlight.Expr().Then(SteeringDirection.LeftSlight);
 			rules[1] = SteeringDirection.Middle.Expr().Then(SteeringDirection.Middle); //mid
-			//rules[3] = SteeringDirection.RightSlight.Expr().Then(SteeringDirection.RightSlight);
 			rules[2] = SteeringDirection.Right.Expr().Then(SteeringDirection.Right);
-		
-			//rules[3] = FutureState.Right.Expr().Then(SteeringDirection.Left); // if curve right , turn left
-			//rules[4] = FutureState.Middle.Expr().Then(SteeringDirection.Middle);
-			//rules[5] = FutureState.Left.Expr().Then(SteeringDirection.Right);
+
+			rules[3] = FutureState.Right.Expr().Then(SteeringDirection.Left); // if curve right , turn left
+			rules[4] = FutureState.Middle.Expr().Then(SteeringDirection.Middle);
+			//rules[5] = FutureState.Middle.Expr().Then(SteeringDirection.Middle);
+			rules[5] = FutureState.Left.Expr().Then(SteeringDirection.Right);
 			//rules[5] = FutureState.Left.Expr().Then(SteeringDirection.Right);
 
 			//rules[6] = ThrottleState.Slow.Expr().Then(ThrottleState.Medium);
@@ -194,7 +196,7 @@ namespace GameAICourse
 			//Debug.Log("distance: " + pathTracker.pathCreator.path.GetPointAtDistance(dist));
 			float curveAhead = Vector3.SignedAngle(transform.position, pathTracker.pathCreator.path.GetPointAtDistance(dist), Vector3.up);
 			float curveDistance = Mathf.Sign(curveAhead) * pathTracker.pathCreator.path.GetPointAtDistance(dist).magnitude;
-			futureSet.Evaluate(curveAhead, inputs);
+			futureSet.Evaluate(curveDistance, inputs);
 
 			Debug.Log("vehicle position: " + carPosition);
 			Debug.Log(pathTracker.pathCreator.path.GetPointAtDistance(dist).magnitude);
@@ -238,7 +240,7 @@ namespace GameAICourse
 			//         }
 
 			//Debug.Log("signed angle: " + angle);
-			
+
 			//Debug.Log("path position: " + pathTracker.closestPointOnPath);
 			//Debug.Log("distance : " + distance);
 			//Debug.Log("signed distance from road " + distanceFromRoad);
@@ -256,7 +258,7 @@ namespace GameAICourse
 			// pos , turn right
 			DB_throttle = Throttle;
 			DB_steering = Steering;
-		
+
 
 
 			//pathTracker.closestPointOnPath
