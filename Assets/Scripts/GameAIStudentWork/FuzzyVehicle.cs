@@ -23,7 +23,7 @@ namespace GameAICourse
 
 
 		public enum SteeringDirection { Left = 0, Middle, Right }
-		public enum ThrottleState { Slow = 0, Coast = 1, Fast = 2 }
+		public enum SpeedState { Slow = 0, Coast = 1, Fast = 2 }
 		public enum FutureState { Left = 0, Middle = 1, Right = 2 }
 		public enum CurrentDirection { Negative = 0, Middle = 1, Positive = 2 }
 		// create some Fuzzy Set enumeration types, and member variables for:
@@ -34,12 +34,12 @@ namespace GameAICourse
 		FuzzySet<SteeringDirection> currentCarSignedDistanceSet;
 		FuzzyRuleSet<SteeringDirection> steeringDirectionRuleSet;
 		FuzzySet<FutureState> futureSet;
-		FuzzySet<ThrottleState> speedSet;
-		FuzzyRuleSet<ThrottleState> speedRulesSet;
+		FuzzySet<SpeedState> speedSet;
+		FuzzyRuleSet<SpeedState> speedRulesSet;
 
-		FuzzySet<ThrottleState> throttleSet;
-		FuzzyRuleSet<ThrottleState> throttleRuleSet;
-
+		//FuzzySet<SpeedState> speedSet;
+		//FuzzyRuleSet<SpeedState> speedRuleSet;
+		FuzzyValueSet inputs;
 
 		/* private FuzzySet<ThrottleState> GetSpeedSet()
 		{
@@ -60,17 +60,22 @@ namespace GameAICourse
 		} */
 
 
-		private FuzzySet<ThrottleState> GetThrottleSet()
+		private FuzzySet<SpeedState> GetSpeedSet() 
 		{
-			
-			IMembershipFunction slowFx = new ShoulderMembershipFunction(-1f, new Coords(-1f, 1f), new Coords(0.15f, 1f), 1f);
+
+			IMembershipFunction slowFx = new ShoulderMembershipFunction(-1f, new Coords(-1f, 1f), new Coords(0.15f, 0f), 1f);
 			IMembershipFunction coastFx = new TriangularMembershipFunction(new Coords(.15f, 0f), new Coords(.35f, 1f), new Coords(.40f, 0f));
 			IMembershipFunction fastFx = new ShoulderMembershipFunction(-1f, new Coords(.30f, 0f), new Coords(.50f, 1f), 1f);
 
-			FuzzySet<ThrottleState> set = new FuzzySet<ThrottleState>();
-			set.Set(new FuzzyVariable<ThrottleState>(ThrottleState.Slow, slowFx));
-			set.Set(new FuzzyVariable<ThrottleState>(ThrottleState.Coast, coastFx));
-			set.Set(new FuzzyVariable<ThrottleState>(ThrottleState.Fast, fastFx));
+			//IMembershipFunction slowFx = new ShoulderMembershipFunction(-100f, new Coords(6f, 1f), new Coords(35f, 0f), 100f);
+			//IMembershipFunction coastFx = new TriangularMembershipFunction(new Coords(33f, 0f), new Coords(45f, 1f), new Coords(50f, 0f));
+			//IMembershipFunction fastFx = new ShoulderMembershipFunction(-100f, new Coords(48f, 0f), new Coords(95f, 1f), 100f);
+
+
+			FuzzySet<SpeedState> set = new FuzzySet<SpeedState>();
+			set.Set(new FuzzyVariable<SpeedState>(SpeedState.Slow, slowFx));
+			set.Set(new FuzzyVariable<SpeedState>(SpeedState.Coast, coastFx));
+			set.Set(new FuzzyVariable<SpeedState>(SpeedState.Fast, fastFx));
 			return set;
 		}
 
@@ -99,7 +104,7 @@ namespace GameAICourse
 			//new ShoulderMembershipFunction(-1f, new Coords(-1f, 1f), new Coords(0f, 0f), 1f);
 			IMembershipFunction leftFx = new ShoulderMembershipFunction(-1f, new Coords(-1f, 1f), new Coords(0f, 0f), 1f);
 			//IMembershipFunction leftSlightFx = new TrapezoidMembershipFunction(new Coords(-0.1f, 0f), new Coords(-0.05f, 1f), new Coords(-.02f, 1f), new Coords(0f, 0f));
-			IMembershipFunction middleFx = new TrapezoidMembershipFunction(new Coords(-0.35f, 0f), new Coords(-0.25f, 1f), new Coords(0.25f, 1f), new Coords(0.35f, 0f));
+			IMembershipFunction middleFx = new TrapezoidMembershipFunction(new Coords(-0.30f, 0f), new Coords(-0.22f, 1f), new Coords(0.22f, 1f), new Coords(0.30f, 0f));
 			//IMembershipFunction rightSlightFx = new TrapezoidMembershipFunction(new Coords(0f, 0f), new Coords(.02f, 1f), new Coords(.05f, 1f), new Coords(0.10f, 0f));
 			IMembershipFunction rightFx = new ShoulderMembershipFunction(-1f, new Coords(0f, 0f), new Coords(1f, 1f), 1f);
 
@@ -116,10 +121,10 @@ namespace GameAICourse
 		private FuzzySet<FutureState> GetFutureSet()
 		{
 
-			IMembershipFunction leftFx = new TrapezoidMembershipFunction(new Coords(-12.5f, 0f), new Coords(-7f, 1f), new Coords(0.5f, 1f), new Coords(0f, 0f));
-			IMembershipFunction middleFx1 = new ShoulderMembershipFunction(-30f, new Coords(-30f, 1f), new Coords(-19.5f, 0f), 30f);
-			IMembershipFunction middleFx2 = new ShoulderMembershipFunction(-30f, new Coords(19.5f, 0f), new Coords(30f, 1f), 30f);
-			IMembershipFunction rightFx = new TrapezoidMembershipFunction(new Coords(0f, 0f), new Coords(0.5f, 1f), new Coords(7f, 1f), new Coords(12.5f, 0f));
+			IMembershipFunction leftFx = new TrapezoidMembershipFunction(new Coords(-10.5f, 0f), new Coords(-7f, 1f), new Coords(0.5f, 1f), new Coords(0f, 0f));
+			IMembershipFunction middleFx1 = new ShoulderMembershipFunction(-50f, new Coords(-40f, 1f), new Coords(-20f, 0f), 50f);
+			IMembershipFunction middleFx2 = new ShoulderMembershipFunction(-50f, new Coords(20f, 0f), new Coords(40f, 1f),50f);
+			IMembershipFunction rightFx = new TrapezoidMembershipFunction(new Coords(0f, 0f), new Coords(0.5f, 1f), new Coords(7f, 1f), new Coords(10.5f, 0f));
 
 			FuzzySet<FutureState> set = new FuzzySet<FutureState>();
 			set.Set(new FuzzyVariable<FutureState>(FutureState.Left, leftFx));
@@ -164,22 +169,14 @@ namespace GameAICourse
 			return rules;
 		}
 
-		/*
-		private FuzzyRule<ThrottleState>[] GetSpeedRules()
-		{
-			FuzzyRule<ThrottleState>[] rules = new FuzzyRule<ThrottleState>[3];
-			rules[0] = ThrottleState.Slow.Expr().Then(ThrottleState.Fast);
-			rules[1] = ThrottleState.Coast.Expr().Then(ThrottleState.Coast);
-			rules[2] = ThrottleState.Fast.Expr().Then(ThrottleState.Coast);
-			return rules;
-		} */
+
 		 
-		private FuzzyRule<ThrottleState>[] GetThrottleRules()
+		private FuzzyRule<SpeedState>[] GetSpeedRules()
 		{
-			FuzzyRule<ThrottleState>[] rules = new FuzzyRule<ThrottleState>[3];
-			rules[0] = ThrottleState.Slow.Expr().Then(ThrottleState.Fast);
-			rules[1] = ThrottleState.Coast.Expr().Then(ThrottleState.Coast);
-			rules[2] = ThrottleState.Fast.Expr().Then(ThrottleState.Coast);
+			FuzzyRule<SpeedState>[] rules = new FuzzyRule<SpeedState>[3];
+			rules[0] = SpeedState.Slow.Expr().Then(SpeedState.Fast);
+			rules[1] = SpeedState.Coast.Expr().Then(SpeedState.Coast);
+			rules[2] = SpeedState.Fast.Expr().Then(SpeedState.Coast);
 			return rules;
 		}
 
@@ -196,10 +193,10 @@ namespace GameAICourse
 			return new FuzzyRuleSet<ThrottleState>(throttle, rules);
 		} */
 
-		private FuzzyRuleSet<ThrottleState> GetThrottleRuleSet(FuzzySet<ThrottleState> throttle)
+		private FuzzyRuleSet<SpeedState> GetSpeedRuleSet(FuzzySet<SpeedState> throttle)
 		{
-			var rules = this.GetThrottleRules();
-			return new FuzzyRuleSet<ThrottleState>(throttle, rules);
+			var rules = this.GetSpeedRules();
+			return new FuzzyRuleSet<SpeedState>(throttle, rules);
 		}
 
 
@@ -220,11 +217,11 @@ namespace GameAICourse
 			//speedSet = this.GetSpeedSet();
 			//speedRulesSet = this.GetSpeedRulesSet(speedSet);
 
-			throttleSet = this.GetThrottleSet();
-			throttleRuleSet = this.GetThrottleRuleSet(throttleSet);
+			speedSet = this.GetSpeedSet();
+			speedRulesSet = this.GetSpeedRuleSet(speedSet);
 			//var currentDirectionSet = this.GetCurrentDirectionSet();
 			//var SteeringRuleSet = this.GetSteeringSet();
-			//FuzzyValueSet inputs = new FuzzyValueSet();
+			inputs = new FuzzyValueSet();
 		}
 
 
@@ -251,7 +248,7 @@ namespace GameAICourse
 			//var steer = this.GetSteeringSet();
 			//var steeringRuleSet = this.GetDirectionRuleSet(steer);
 
-			FuzzyValueSet inputs = new FuzzyValueSet();
+			//FuzzyValueSet inputs = new FuzzyValueSet();
 			//steeringDirectionSet.Evaluate(Vector2.Dot(transform.right, pathTracker.closestPointDirectionOnPath), inputs);
 
 
@@ -267,29 +264,58 @@ namespace GameAICourse
 
 			steeringDirectionSet.Evaluate(distance, inputs);
 			currentCarSignedDistanceSet.Evaluate(distance, inputs);
+			
 
-			float dist = pathTracker.distanceTravelled + Speed * 2.5f;
+			float dist = pathTracker.distanceTravelled + this.Speed * 2.00f;
 			//Debug.Log("distance: " + pathTracker.pathCreator.path.GetPointAtDistance(dist));
-			float curveAhead = Vector3.SignedAngle(transform.position, pathTracker.pathCreator.path.GetPointAtDistance(dist), Vector3.up);
+			float curveAhead = Vector3.SignedAngle(transform.forward, pathTracker.pathCreator.path.GetPointAtDistance(dist) - transform.position, Vector3.up);
 			float curveDistance = Mathf.Sign(curveAhead) * pathTracker.pathCreator.path.GetPointAtDistance(dist).magnitude;
+			//TODO uncomment it back
+			//futureSet.Evaluate(curveDistance, inputs);
+
+
 
 			//Debug.Log("Before calculation speed: " + this.Speed);
-			//Throttle = speedRulesSet.Evaluate(this.Speed, inputs);
-			//Debug.Log(throttleRuleSet);
-			//Throttle = throttleRuleSet.Evaluate(this.Speed, inputs);
-			//Debug.Log("speed: " + Throttle);
-			//Debug.Log("vehicle position: " + carPosition);
-			Debug.Log(pathTracker.pathCreator.path.GetPointAtDistance(dist).magnitude);
-			Debug.Log("Difference distance btwn car and road " + (transform.position - pathTracker.pathCreator.path.GetPointAtDistance(dist)).magnitude);
+			speedSet.Evaluate(this.Speed, inputs);
+			Throttle = speedRulesSet.Evaluate(this.Speed, inputs); // throttleRuleSet means speedRuleSet
+																   //Debug.Log(throttleRuleSet);
+																   //Throttle = throttleRuleSet.Evaluate(this.Speed, inputs);
+																   //Debug.Log("speed: " + Throttle.GetType());
+																   //Debug.Log("vehicle position: " + carPosition);
+																   //Debug.Log(pathTracker.pathCreator.path.GetPointAtDistance(dist).magnitude);
+			float dist2 = pathTracker.distanceTravelled + this.Speed * 0.30f;
+			Debug.Log("Difference distance btwn car and road future " + (transform.position - pathTracker.pathCreator.path.GetPointAtDistance(dist)).magnitude);
+			Debug.Log("Difference distance btwn car and road near " + (transform.position - pathTracker.pathCreator.path.GetPointAtDistance(dist2)).magnitude);
+
+			//Debug.Log("Difference distance btwn car and road future DIRECTION " + (transform.position - pathTracker.pathCreator.path.GetDirectionAtDistance(dist)));
+			//Debug.Log("Difference distance btwn car and road near DIRECTION " + (transform.position - pathTracker.pathCreator.path.GetDirectionAtDistance(dist2)));
+
+			float curveAhead2 = Vector3.SignedAngle(transform.forward, pathTracker.pathCreator.path.GetPointAtDistance(dist2) - transform.position, Vector3.up);
+
+
+			float curveDistance2 = Mathf.Sign(curveAhead2) * pathTracker.pathCreator.path.GetPointAtDistance(dist2).magnitude;
+			futureSet.Evaluate(curveDistance2, inputs);
 			if (curveAhead > 0)
 			{
 				//distanceFromRoad = Mathf.Sign(angle) * (carPosition - pathTracker.closestPointOnPath);
-				Debug.Log("curve on right side");
+				Debug.Log("curve on right side future");
 			}
 			else
 			{
 				//distanceFromRoad = -1 * (carPosition - pathTracker.closestPointOnPath);
-				Debug.Log("on left  side");
+				Debug.Log("on left  side future");
+
+			}
+
+			if (curveAhead2 > 0)
+			{
+				//distanceFromRoad = Mathf.Sign(angle) * (carPosition - pathTracker.closestPointOnPath);
+				Debug.Log("curve on right side NEAR");
+			}
+			else
+			{
+				//distanceFromRoad = -1 * (carPosition - pathTracker.closestPointOnPath);
+				Debug.Log("on left side NEAR ");
 
 			}
 
