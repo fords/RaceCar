@@ -50,8 +50,8 @@ namespace GameAICourse
 		{
 
 			IMembershipFunction slowFx = new ShoulderMembershipFunction(-1f, new Coords(-1f, 1f), new Coords(0.44f, 0f), 1f);
-			IMembershipFunction coastFx = new TriangularMembershipFunction(new Coords(.38f, 0f), new Coords(.47f, 1f), new Coords(.53f, 0f));
-			IMembershipFunction fastFx = new ShoulderMembershipFunction(-1f, new Coords(.48f, 0f), new Coords(1f, 1f), 1f);
+			IMembershipFunction coastFx = new TriangularMembershipFunction(new Coords(.38f, 0f), new Coords(.44f, 1f), new Coords(.50f, 0f));
+			IMembershipFunction fastFx = new ShoulderMembershipFunction(-1f, new Coords(.45f, 0f), new Coords(1f, 1f), 1f);
 
 			//IMembershipFunction slowFx = new ShoulderMembershipFunction(-100f, new Coords(6f, 1f), new Coords(35f, 0f), 100f);
 			//IMembershipFunction coastFx = new TriangularMembershipFunction(new Coords(33f, 0f), new Coords(40f, 1f), new Coords(45f, 0f));
@@ -178,7 +178,7 @@ namespace GameAICourse
 		 
 		private FuzzyRule<SpeedState>[] GetSpeedRules()
 		{
-			FuzzyRule<SpeedState>[] rules = new FuzzyRule<SpeedState>[7];
+			FuzzyRule<SpeedState>[] rules = new FuzzyRule<SpeedState>[10];
 			rules[0] = SpeedState.Slow.Expr().Then(SpeedState.Fast);
 			rules[1] = SpeedState.Coast.Expr().Then(SpeedState.Coast);
 			rules[2] = SpeedState.Fast.Expr().Then(SpeedState.Coast);
@@ -186,6 +186,9 @@ namespace GameAICourse
 			rules[4] = NearState.Left.Expr().And(SpeedState.Slow.Expr()).Then(SpeedState.Coast);
 			rules[5] = NearState.Right.Expr().And(SpeedState.Fast.Expr()).Then(SpeedState.Coast);
 			rules[6] = NearState.Right.Expr().And(SpeedState.Slow.Expr()).Then(SpeedState.Coast);
+			rules[7] = NearState.Middle.Expr().And(SpeedState.Slow.Expr()).Then(SpeedState.Fast);
+			rules[8] = CurrentDirection.Middle.Expr().Then(SpeedState.Coast);
+			rules[9] = CurrentDirection.Middle.Expr().And(NearState.Middle.Expr()).Then(SpeedState.Coast); // todo put fast
 			return rules;
 		}
 
@@ -276,7 +279,7 @@ namespace GameAICourse
 			currentCarSignedDistanceSet.Evaluate(distance, inputs);
 			
 
-			float dist = pathTracker.distanceTravelled + this.Speed * 5.40f;
+			float dist = pathTracker.distanceTravelled + this.Speed * 4.70f;
 			//Debug.Log("distance: " + pathTracker.pathCreator.path.GetPointAtDistance(dist));
 			float curveAhead = Vector3.SignedAngle(transform.forward, pathTracker.pathCreator.path.GetPointAtDistance(dist) - transform.position, Vector3.up);
 			float curveDistance = Mathf.Sign(curveAhead) * pathTracker.pathCreator.path.GetPointAtDistance(dist).magnitude;
