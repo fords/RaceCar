@@ -49,9 +49,9 @@ namespace GameAICourse
 		private FuzzySet<SpeedState> GetSpeedSet() 
 		{
 
-			IMembershipFunction slowFx = new ShoulderMembershipFunction(-1f, new Coords(-1f, 1f), new Coords(0.38f, 0f), 1f);
-			IMembershipFunction coastFx = new TriangularMembershipFunction(new Coords(.34f, 0f), new Coords(.43f, 1f), new Coords(.48f, 0f));
-			IMembershipFunction fastFx = new ShoulderMembershipFunction(-1f, new Coords(.44f, 0f), new Coords(1f, 1f), 1f);
+			IMembershipFunction slowFx = new ShoulderMembershipFunction(-1f, new Coords(-1f, 1f), new Coords(0.44f, 0f), 1f);
+			IMembershipFunction coastFx = new TriangularMembershipFunction(new Coords(.38f, 0f), new Coords(.47f, 1f), new Coords(.53f, 0f));
+			IMembershipFunction fastFx = new ShoulderMembershipFunction(-1f, new Coords(.48f, 0f), new Coords(1f, 1f), 1f);
 
 			//IMembershipFunction slowFx = new ShoulderMembershipFunction(-100f, new Coords(6f, 1f), new Coords(35f, 0f), 100f);
 			//IMembershipFunction coastFx = new TriangularMembershipFunction(new Coords(33f, 0f), new Coords(40f, 1f), new Coords(45f, 0f));
@@ -107,10 +107,10 @@ namespace GameAICourse
 		private FuzzySet<NearState> GetnearSet()
 		{
 
-			IMembershipFunction leftFx = new TrapezoidMembershipFunction(new Coords(0f, 0f), new Coords(0.5f, 1f), new Coords(7f, 1f), new Coords(10.5f, 0f));
-			IMembershipFunction middleFx1 = new ShoulderMembershipFunction(-100f, new Coords(-20f, 1f), new Coords(-5f, 0f), 100f);
-			IMembershipFunction middleFx2 = new ShoulderMembershipFunction(-100f, new Coords(5f, 0f), new Coords(20f, 1f),100f);
-			IMembershipFunction rightFx = new TrapezoidMembershipFunction(new Coords(-11.5f, 0f), new Coords(-7f, 1f), new Coords(0.5f, 1f), new Coords(0f, 0f));
+			IMembershipFunction leftFx = new TrapezoidMembershipFunction(new Coords(0f, 0f), new Coords(2.00f, 1f), new Coords(7f, 1f), new Coords(11.5f, 0f));
+			IMembershipFunction middleFx1 = new ShoulderMembershipFunction(-35f, new Coords(-20f, 1f), new Coords(-10f, 0f), 35f);
+			IMembershipFunction middleFx2 = new ShoulderMembershipFunction(-35f, new Coords(10f, 0f), new Coords(20f, 1f),35f);
+			IMembershipFunction rightFx = new TrapezoidMembershipFunction(new Coords(-11.5f, 0f), new Coords(-7f, 1f), new Coords(2.00f, 1f), new Coords(0f, 0f));
 			FuzzySet<NearState> set = new FuzzySet<NearState>();
 			set.Set(new FuzzyVariable<NearState>(NearState.Left, leftFx));
 			set.Set(new FuzzyVariable<NearState>(NearState.Middle, middleFx1));
@@ -123,14 +123,14 @@ namespace GameAICourse
 		private FuzzySet<FutureState> GetfutureSet()
 		{
 
-			IMembershipFunction leftFx = new TrapezoidMembershipFunction(new Coords(-30.5f, 0f), new Coords(-10f, 1f), new Coords(-2.0f, 1f), new Coords(0.0f, 0f));
+			IMembershipFunction leftFx = new TrapezoidMembershipFunction(new Coords(-25.5f, 0f), new Coords(-12f, 1f), new Coords(-2.2f, 1f), new Coords(0.0f, 0f));
 			//new TriangularMembershipFunction(new Coords(-30.5f, 0f), new Coords(-7f, 1f), new Coords(0.0f, 0f));  // new TrapezoidMembershipFunction(new Coords(-12.5f, 0f), new Coords(-7f, 1f), new Coords(0.5f, 1f), new Coords(0f, 0f));
 			//IMembershipFunction middleFx1 = new ShoulderMembershipFunction(-50f, new Coords(-50f, 1f), new Coords(-27f, 0f), 50f);
 			//IMembershipFunction middleFx2 = new ShoulderMembershipFunction(-50f, new Coords(27f, 0f), new Coords(50f, 1f), 50f);
 
 			//IMembershipFunction middleFx1 = new TriangularMembershipFunction(new Coords(-33f, 0f), new Coords(-27f, 1f), new Coords(-20f, 0f));  //new ShoulderMembershipFunction(-20f, new Coords(-20f, 1f), new Coords(-10f, 0f), 20f);
 			//IMembershipFunction middleFx2 = new TriangularMembershipFunction(new Coords(20f, 0f), new Coords(27f, 1f), new Coords(33f, 0f));  //new ShoulderMembershipFunction(-20f, new Coords(10f, 0f), new Coords(20f, 1f), 20f);
-			IMembershipFunction rightFx = new TrapezoidMembershipFunction(new Coords(0f, 0f), new Coords(2.0f, 1f), new Coords(10f, 1f), new Coords(31.5f, 0f));
+			IMembershipFunction rightFx = new TrapezoidMembershipFunction(new Coords(0f, 0f), new Coords(2.2f, 1f), new Coords(12f, 1f), new Coords(25.5f, 0f));
 			//new TriangularMembershipFunction(new Coords(0.0f, 0f), new Coords(7f, 1f), new Coords(31.5f, 0f)); //new TrapezoidMembershipFunction(new Coords(0f, 0f), new Coords(0.5f, 1f), new Coords(7f, 1f), new Coords(12.5f, 0f));
 
 			FuzzySet<FutureState> set = new FuzzySet<FutureState>();
@@ -276,7 +276,7 @@ namespace GameAICourse
 			currentCarSignedDistanceSet.Evaluate(distance, inputs);
 			
 
-			float dist = pathTracker.distanceTravelled + this.Speed * 5.50f;
+			float dist = pathTracker.distanceTravelled + this.Speed * 5.40f;
 			//Debug.Log("distance: " + pathTracker.pathCreator.path.GetPointAtDistance(dist));
 			float curveAhead = Vector3.SignedAngle(transform.forward, pathTracker.pathCreator.path.GetPointAtDistance(dist) - transform.position, Vector3.up);
 			float curveDistance = Mathf.Sign(curveAhead) * pathTracker.pathCreator.path.GetPointAtDistance(dist).magnitude;
@@ -293,9 +293,9 @@ namespace GameAICourse
 																   //Debug.Log("speed: " + Throttle.GetType());
 																   //Debug.Log("vehicle position: " + carPosition);
 																   //Debug.Log(pathTracker.pathCreator.path.GetPointAtDistance(dist).magnitude);
-			float dist2 = pathTracker.distanceTravelled + this.Speed * 0.35f;
-			Debug.Log("Difference distance btwn car and road future " + (transform.position - pathTracker.pathCreator.path.GetPointAtDistance(dist)).magnitude);
-			Debug.Log("Difference distance btwn car and road near " + (transform.position - pathTracker.pathCreator.path.GetPointAtDistance(dist2)).magnitude);
+			float dist2 = pathTracker.distanceTravelled + this.Speed * 0.25f;
+			//Debug.Log("Difference distance btwn car and road future " + (transform.position - pathTracker.pathCreator.path.GetPointAtDistance(dist)).magnitude);
+			//Debug.Log("Difference distance btwn car and road near " + (transform.position - pathTracker.pathCreator.path.GetPointAtDistance(dist2)).magnitude);
 
 			//Debug.Log("Difference distance btwn car and road future DIRECTION " + (transform.position - pathTracker.pathCreator.path.GetDirectionAtDistance(dist)));
 			//Debug.Log("Difference distance btwn car and road near DIRECTION " + (transform.position - pathTracker.pathCreator.path.GetDirectionAtDistance(dist2)));
@@ -308,24 +308,24 @@ namespace GameAICourse
 			if (curveAhead > 0)
 			{
 				//distanceFromRoad = Mathf.Sign(angle) * (carPosition - pathTracker.closestPointOnPath);
-				Debug.Log("curve on right side future");
+				Debug.Log("curve on right side future  : " + curveAhead);
 			}
 			else
 			{
 				//distanceFromRoad = -1 * (carPosition - pathTracker.closestPointOnPath);
-				Debug.Log("on left  side future");
+				Debug.Log("on left  side future  :  " + curveAhead);
 
 			}
 
 			if (curveAhead2 > 0)
 			{
 				//distanceFromRoad = Mathf.Sign(angle) * (carPosition - pathTracker.closestPointOnPath);
-				Debug.Log("curve on right side NEAR");
+				Debug.Log("curve on right side NEAR :  "+ curveAhead2);
 			}
 			else
 			{
 				//distanceFromRoad = -1 * (carPosition - pathTracker.closestPointOnPath);
-				Debug.Log("on left side NEAR ");
+				Debug.Log("on left side NEAR:  "+ curveAhead2);
 
 			}
 
