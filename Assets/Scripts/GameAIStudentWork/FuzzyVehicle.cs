@@ -64,9 +64,9 @@ namespace GameAICourse
 		private FuzzySet<SpeedState> GetSpeedSet() 
 		{
 
-			IMembershipFunction slowFx = new ShoulderMembershipFunction(-1f, new Coords(-1f, 1f), new Coords(0.43f, 0f), 1f);
-			IMembershipFunction coastFx = new TriangularMembershipFunction(new Coords(.40f, 0f), new Coords(.44f, 1f), new Coords(.47f, 0f));
-			IMembershipFunction fastFx = new ShoulderMembershipFunction(-1f, new Coords(.43f, 0f), new Coords(.45f, 1f), 1f);
+			IMembershipFunction slowFx = new ShoulderMembershipFunction(-1f, new Coords(-1f, 1f), new Coords(0.45f, 0f), 1f);
+			IMembershipFunction coastFx = new TriangularMembershipFunction(new Coords(.43f, 0f), new Coords(.46f, 1f), new Coords(.49f, 0f));
+			IMembershipFunction fastFx = new ShoulderMembershipFunction(-1f, new Coords(.47f, 0f), new Coords(.52f, 1f), 1f);
 
 
 			//IMembershipFunction slowFx = new ShoulderMembershipFunction(-1f, new Coords(-1f, 1f), new Coords(0.45f, 0f), 1f);
@@ -91,7 +91,7 @@ namespace GameAICourse
 			//new ShoulderMembershipFunction(-1f, new Coords(-1f, 1f), new Coords(0f, 0f), 1f);
 			IMembershipFunction leftFx = new ShoulderMembershipFunction(-1f, new Coords(-1f, 1f), new Coords(0f, 0f), 1f);
 			//IMembershipFunction leftSlightFx = new TrapezoidMembershipFunction(new Coords(-0.1f, 0f), new Coords(-0.05f, 1f), new Coords(-.02f, 1f), new Coords(0f, 0f));
-			IMembershipFunction middleFx = new TrapezoidMembershipFunction(new Coords(-0.38f, 0f), new Coords(-0.25f, 1f), new Coords(0.25f, 1f), new Coords(0.38f, 0f));
+			IMembershipFunction middleFx = new TrapezoidMembershipFunction(new Coords(-0.33f, 0f), new Coords(-0.25f, 1f), new Coords(0.25f, 1f), new Coords(0.33f, 0f));
 			//IMembershipFunction rightSlightFx = new TrapezoidMembershipFunction(new Coords(0f, 0f), new Coords(.02f, 1f), new Coords(.05f, 1f), new Coords(0.10f, 0f));
 			IMembershipFunction rightFx = new ShoulderMembershipFunction(-1f, new Coords(0f, 0f), new Coords(1f, 1f), 1f);
 
@@ -127,18 +127,25 @@ namespace GameAICourse
 		private FuzzySet<NearState> GetnearSet()
 		{
 
-			IMembershipFunction leftFx = new TrapezoidMembershipFunction(new Coords(0.0f, 0f), new Coords(2.00f, 1f), new Coords(6f, 1f), new Coords(10.5f, 0f));
-		
+			IMembershipFunction leftFx = new ShoulderMembershipFunction(-15.5f, new Coords(-15f, 0f), new Coords(-12f, 1f), 0f);
+			
+			//new TrapezoidMembershipFunction(new Coords(0.0f, 0f), new Coords(2.00f, 1f), new Coords(6f, 1f), new Coords(10.5f, 0f));
 
-			IMembershipFunction middleFx1 = new ShoulderMembershipFunction(-100f, new Coords(-15f, 1f), new Coords(-12f, 0f), 100f);
-			IMembershipFunction middleFx2 = new ShoulderMembershipFunction(-100f, new Coords(12f, 0f), new Coords(15f, 1f), 100f);
-			IMembershipFunction rightFx  = new TrapezoidMembershipFunction(new Coords(-12.5f, 0f), new Coords(-7f, 1f), new Coords(1.00f, 1f), new Coords(0.0f, 0f));
 
-		
+			//IMembershipFunction middleFx1 = new TrapezoidMembershipFunction(new Coords(-35.5f, 1f), new Coords(-12.5f, 0f), new Coords(12.5f, 0f), new Coords(35.5f, 1f));
+
+
+			//	new ShoulderMembershipFunction(-50f, new Coords(-15f, 1f), new Coords(-12f, 0f), 50f);
+			//IMembershipFunction middleFx2 = new ShoulderMembershipFunction(-50f, new Coords(12f, 0f), new Coords(15f, 1f), 50f);
+			IMembershipFunction rightFx = new ShoulderMembershipFunction(12f, new Coords(12f, 0f), new Coords(15f, 1f), 15.5f);
+
+			//new TrapezoidMembershipFunction(new Coords(-12.5f, 0f), new Coords(-7f, 1f), new Coords(1.00f, 1f), new Coords(0.0f, 0f));
+
+
 			FuzzySet<NearState> set = new FuzzySet<NearState>();
 			set.Set(new FuzzyVariable<NearState>(NearState.Left, leftFx));
-			set.Set(new FuzzyVariable<NearState>(NearState.Middle, middleFx1));
-			set.Set(new FuzzyVariable<NearState>(NearState.Middle, middleFx2));
+			//set.Set(new FuzzyVariable<NearState>(NearState.Middle, middleFx1));
+			//set.Set(new FuzzyVariable<NearState>(NearState.Middle, middleFx2));
 			set.Set(new FuzzyVariable<NearState>(NearState.Right, rightFx));
 			return set;
 		}
@@ -147,7 +154,7 @@ namespace GameAICourse
 		private FuzzySet<FutureState> GetfutureSet()
 		{
 
-			IMembershipFunction leftFx = new TrapezoidMembershipFunction(new Coords(-30.5f, 0f), new Coords(-15f, 1f), new Coords(-3.0f, 1f), new Coords(0.0f, 0f));
+			IMembershipFunction leftFx = new TrapezoidMembershipFunction(new Coords(-30.5f, 0f), new Coords(-12f, 1f), new Coords(-2.2f, 1f), new Coords(0.0f, 0f));
 			IMembershipFunction rightFx = new TrapezoidMembershipFunction(new Coords(0f, 0f), new Coords(2.2f, 1f), new Coords(12f, 1f), new Coords(25.5f, 0f));
 			
 			FuzzySet<FutureState> set = new FuzzySet<FutureState>();
@@ -161,26 +168,29 @@ namespace GameAICourse
 
 		private FuzzyRule<SteeringDirection>[] GetDirectionRules()
 		{
-			FuzzyRule<SteeringDirection>[] rules = new FuzzyRule<SteeringDirection>[10];
+			FuzzyRule<SteeringDirection>[] rules = new FuzzyRule<SteeringDirection>[3];
 			// rule 0: if the signed distance from road center negative, turn left
+
+
+			//rules[0] = NearState.Left.Expr().Then(SteeringDirection.Left); ;// if curve ahead near is left , turn left
+			//rules[1] =
+			//NearState.Middle.Expr().Then(SteeringDirection.Middle);
+
+			//rules[1] =  NearState.Right.Expr().Then(SteeringDirection.Right);
+
 			rules[0] = CurrentDirection.Negative.Expr().Then(SteeringDirection.Left);
 			rules[1] = CurrentDirection.Middle.Expr().Then(SteeringDirection.Middle); //mid
 			rules[2] = CurrentDirection.Positive.Expr().Then(SteeringDirection.Right);
 
-			rules[3] = NearState.Left.Expr().Then(SteeringDirection.Left); // if curve ahead near is left , turn left
-			rules[4] = NearState.Middle.Expr().Then(SteeringDirection.Middle);
+			//rules[6] = NearState.Right.Expr().And(FutureState.Right.Expr()).Then(SteeringDirection.Right); // if curve ahead in 2 secs is right, turn  right
 
-			rules[5] =  NearState.Right.Expr().Then(SteeringDirection.Right);
-
-			rules[6] = NearState.Right.Expr().And(FutureState.Right.Expr()).Then(SteeringDirection.Right); // if curve ahead in 2 secs is right, turn  right
-			
-			rules[7] = NearState.Left.Expr().And(FutureState.Left.Expr()).Then(SteeringDirection.Left);
+			//rules[7] = NearState.Left.Expr().And(FutureState.Left.Expr()).Then(SteeringDirection.Left);
 
 
-			rules[8] = NearState.Right.Expr().Then(SteeringDirection.Right); // if curve ahead in 2 secs is right, turn  right
-		
-			rules[9] = NearState.Left.Expr().Then(SteeringDirection.Left);
-	
+			//rules[8] = NearState.Right.Expr().Then(SteeringDirection.Right); // if curve ahead in 2 secs is right, turn  right
+
+			//rules[9] = NearState.Left.Expr().Then(SteeringDirection.Left);
+
 			return rules;
 		}
 
@@ -212,12 +222,7 @@ namespace GameAICourse
 			return new FuzzyRuleSet<SteeringDirection>(steer, rules);
 		}
 
-		/*
-		private FuzzyRuleSet<ThrottleState> GetSpeedRulesSet(FuzzySet<ThrottleState> throttle)
-		{
-			var rules = this.GetSpeedRules();
-			return new FuzzyRuleSet<ThrottleState>(throttle, rules);
-		} */
+
 
 		private FuzzyRuleSet<SpeedState> GetSpeedRuleSet(FuzzySet<SpeedState> throttle)
 		{
@@ -242,13 +247,11 @@ namespace GameAICourse
 			futureSet = this.GetfutureSet();
 			steeringDirectionRuleSet = this.GetDirectionRuleSet(currentCarSignedDistanceSet);
 			angleSet = this.GetAngleSet();
-			//speedSet = this.GetSpeedSet();
-			//speedRulesSet = this.GetSpeedRulesSet(speedSet);
+
 
 			speedSet = this.GetSpeedSet();
 			speedRulesSet = this.GetSpeedRuleSet(speedSet);
-			//var currentDirectionSet = this.GetCurrentDirectionSet();
-			//var SteeringRuleSet = this.GetSteeringSet();
+
 			inputs = new FuzzyValueSet();
 		}
 
@@ -260,24 +263,10 @@ namespace GameAICourse
 			// the car like so:
 			// Throttle = someValue; //[-1f, 1f] -1 is full brake, 0 is neutral, 1 is full throttle
 			// Steering = someValue; // [-1f, 1f] -1 if full left, 0 is neutral, 1 is full right
-			//var desirability = this.GetDesirabilitySet();
-			//var distance = this.GetDistanceToTargetSet();
-
-			//distance.Evaluate(200f, inputs);
-			//Steering = steeringDirectionRuleSet.Evaluate(inputs);
-
-			//Steering = fzSteeringRuleSet.Evaluate(fzInputValueSet);
-			//Throttle = fzThrottleRuleSet.Evaluate(fzInputValueSet);
-
+	
 			//Throttle = .40f; //.22f
 			//Steering = 0f;
 
-			//var currentDirectionSet = this.GetCurrentDirectionSet();
-			//var steer = this.GetSteeringSet();
-			//var steeringRuleSet = this.GetDirectionRuleSet(steer);
-
-			//FuzzyValueSet inputs = new FuzzyValueSet();
-			//steeringDirectionSet.Evaluate(Vector2.Dot(transform.right, pathTracker.closestPointDirectionOnPath), inputs);
 
 
 			Vector3 carPosition = transform.position;
@@ -294,7 +283,7 @@ namespace GameAICourse
 			currentCarSignedDistanceSet.Evaluate(distance, inputs);
 			
 
-			float dist = pathTracker.distanceTravelled + this.Speed * 5.30f;
+			float dist = pathTracker.distanceTravelled + this.Speed * 5.50f;
 			//Debug.Log("distance: " + pathTracker.pathCreator.path.GetPointAtDistance(dist));
 			float curveAhead = Vector3.SignedAngle(transform.forward, pathTracker.pathCreator.path.GetPointAtDistance(dist) - transform.position, Vector3.up);
 			float curveDistance = Mathf.Sign(curveAhead) * pathTracker.pathCreator.path.GetPointAtDistance(dist).magnitude;
@@ -305,13 +294,9 @@ namespace GameAICourse
 
 			//Debug.Log("Before calculation speed: " + this.Speed);
 			speedSet.Evaluate(this.Speed, inputs);
-			Throttle = speedRulesSet.Evaluate(this.Speed, inputs); // throttleRuleSet means speedRuleSet
-																   //Debug.Log(throttleRuleSet);
-																   //Throttle = throttleRuleSet.Evaluate(this.Speed, inputs);
-																   //Debug.Log("speed: " + Throttle.GetType());
-																   //Debug.Log("vehicle position: " + carPosition);
-																   //Debug.Log(pathTracker.pathCreator.path.GetPointAtDistance(dist).magnitude);
-			float dist2 = pathTracker.distanceTravelled + this.Speed * 0.20f;
+			Throttle = speedRulesSet.Evaluate(this.Speed, inputs); 
+																  
+			float dist2 = pathTracker.distanceTravelled + this.Speed * 0.37f;
 			//Debug.Log("Difference distance btwn car and road future " + (transform.position - pathTracker.pathCreator.path.GetPointAtDistance(dist)).magnitude);
 			//Debug.Log("Difference distance btwn car and road near " + (transform.position - pathTracker.pathCreator.path.GetPointAtDistance(dist2)).magnitude);
 
@@ -338,67 +323,26 @@ namespace GameAICourse
 			if (curveAhead2 > 0)
 			{
 				//distanceFromRoad = Mathf.Sign(angle) * (carPosition - pathTracker.closestPointOnPath);
-				Debug.Log("curve on right side NEAR :  "+ curveAhead2);
+				Debug.Log("curve on right side NEAR :  " + curveAhead2);
 			}
 			else
 			{
 				//distanceFromRoad = -1 * (carPosition - pathTracker.closestPointOnPath);
-				Debug.Log("on left side NEAR:  "+ curveAhead2);
+				Debug.Log("on left side NEAR:  " + curveAhead2);
 
 			}
 
 
 
 			Steering = steeringDirectionRuleSet.Evaluate(distance, inputs);
-			//if (angle > 0)
-			//{
-			//	distanceFromRoad = Mathf.Sign(angle) * (carPosition - pathTracker.closestPointOnPath);
-			//             Debug.Log("on left side");
-			//         }
-			//else
-			//{
-			//	distanceFromRoad = -1 * (carPosition - pathTracker.closestPointOnPath);
-			//             Debug.Log("on right side");
-
-			//         }
-
-			//         bool left = false;
-			//         bool right = false;
-			//         if (carPosition.z - pathTracker.closestPointOnPath.z > 0)
-			//{
-			//             Debug.Log("on left side");
-			//}
-			//         if (carPosition.z - pathTracker.closestPointOnPath.z < 0)
-			//{
-			//             Debug.Log("on right side");
-			//         }
-
-			//Debug.Log("signed angle: " + angle);
-
-			//Debug.Log("path position: " + pathTracker.closestPointOnPath);
-			//Debug.Log("distance : " + distance);
-			//Debug.Log("signed distance from road " + distanceFromRoad);
-			//Vector2.Dot(transform.right, pathTracker.closestPointDirectionOnPath);
-
-			/* Bad
-            var car2d = new Vector2(transform.position.x, transform.position.y);
-            var path2d = new Vector2(pathTracker.closestPointDirectionOnPath.x, pathTracker.closestPointDirectionOnPath.y);
-            Debug.Log("angle : " + Vector2.Dot(car2d, path2d));
-            */
 
 
-			//Debug.Log("steering : " + Steering);
-			// negative, then turn left
-			// pos , turn right
 			DB_throttle = Throttle;
 			DB_steering = Steering;
 
 
 
-			//pathTracker.closestPointOnPath
-			// recommend you keep the base call at the end, after all your FuzzyVehicle code so that
-			// control inputs can be processed properly (Throttle, Steering)
-
+			
 
 			base.Update();
 
