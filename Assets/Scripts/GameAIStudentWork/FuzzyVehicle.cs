@@ -63,8 +63,8 @@ namespace GameAICourse
 		{
 
 			IMembershipFunction slowFx = new ShoulderMembershipFunction(-1f, new Coords(-1f, 1f), new Coords(0.43f, 0f), 1f);
-			IMembershipFunction coastFx = new TriangularMembershipFunction(new Coords(.40f, 0f), new Coords(.43f, 1f), new Coords(.47f, 0f));
-			IMembershipFunction fastFx = new ShoulderMembershipFunction(-1f, new Coords(.42f, 0f), new Coords(.45f, 1f), 1f);
+			IMembershipFunction coastFx = new TriangularMembershipFunction(new Coords(.41f, 0f), new Coords(.43f, 1f), new Coords(.45f, 0f));
+			IMembershipFunction fastFx = new ShoulderMembershipFunction(-1f, new Coords(.38f, 0f), new Coords(.43f, 1f), 1f);
 
 			//IMembershipFunction slowFx = new ShoulderMembershipFunction(-100f, new Coords(6f, 1f), new Coords(35f, 0f), 100f);
 			//IMembershipFunction coastFx = new TriangularMembershipFunction(new Coords(33f, 0f), new Coords(40f, 1f), new Coords(45f, 0f));
@@ -123,8 +123,11 @@ namespace GameAICourse
 			IMembershipFunction leftFx = new TrapezoidMembershipFunction(new Coords(0.0f, 0f), new Coords(2.00f, 1f), new Coords(6f, 1f), new Coords(10.5f, 0f));
 			//new TriangularMembershipFunction(new Coords(0f, 0f), new Coords(7f, 1f), new Coords(11f, 0f));
 
-			IMembershipFunction middleFx1 = new ShoulderMembershipFunction(-100f, new Coords(-15f, 1f), new Coords(-12f, 0f), 100f);
-			IMembershipFunction middleFx2 = new ShoulderMembershipFunction(-100f, new Coords(12f, 0f), new Coords(15f, 1f), 100f);
+			IMembershipFunction middleFx1 = new TriangularMembershipFunction(new Coords(-30, 0f), new Coords(-15f, 1f), new Coords(10f, 0f));
+
+			//new ShoulderMembershipFunction(-100f, new Coords(-15f, 1f), new Coords(-12f, 0f), 100f);
+			IMembershipFunction middleFx2 = new TriangularMembershipFunction(new Coords(10, 0f), new Coords(15f, 1f), new Coords(30f, 0f));
+			//new ShoulderMembershipFunction(-100f, new Coords(12f, 0f), new Coords(15f, 1f), 100f);
 			IMembershipFunction rightFx  = new TrapezoidMembershipFunction(new Coords(-12.5f, 0f), new Coords(-7f, 1f), new Coords(1.00f, 1f), new Coords(0.0f, 0f));
 			//new TriangularMembershipFunction(new Coords(-11, 0f), new Coords(-7f, 1f), new Coords(0f, 0f));
 		
