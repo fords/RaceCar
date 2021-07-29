@@ -49,7 +49,7 @@ namespace GameAICourse
 		private FuzzySet<AngleState> GetAngleSet()
 		{
 			IMembershipFunction okayFx = new ShoulderMembershipFunction(0f, new Coords(150f, 1f), new Coords(167f, 0f),200f);
-			IMembershipFunction sharpFx = new TriangularMembershipFunction(new Coords(163f, 0f), new Coords(170f, 1f), new Coords(185f, 0f));
+			IMembershipFunction sharpFx = new TriangularMembershipFunction(new Coords(165f, 0f), new Coords(170f, 1f), new Coords(185f, 0f));
 			//new ShoulderMembershipFunction(0f, new Coords(150f, 0f), new Coords(160f, 1f), 200f);
 
 			FuzzySet<AngleState> set = new FuzzySet<AngleState>();
