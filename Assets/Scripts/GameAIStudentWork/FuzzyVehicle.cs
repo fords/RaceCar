@@ -63,8 +63,8 @@ namespace GameAICourse
 		{
 
 			IMembershipFunction slowFx = new ShoulderMembershipFunction(-1f, new Coords(-1f, 1f), new Coords(0.43f, 0f), 1f);
-			IMembershipFunction coastFx = new TriangularMembershipFunction(new Coords(.42f, 0f), new Coords(.45f, 1f), new Coords(.48f, 0f));
-			IMembershipFunction fastFx = new ShoulderMembershipFunction(-1f, new Coords(.41f, 0f), new Coords(.45f, 1f), 1f);
+			IMembershipFunction coastFx = new TriangularMembershipFunction(new Coords(.43f, 0f), new Coords(.46f, 1f), new Coords(.49f, 0f));
+			IMembershipFunction fastFx = new ShoulderMembershipFunction(-1f, new Coords(.45f, 0f), new Coords(.50f, 1f), 1f);
 
 			//IMembershipFunction slowFx = new ShoulderMembershipFunction(-100f, new Coords(6f, 1f), new Coords(35f, 0f), 100f);
 			//IMembershipFunction coastFx = new TriangularMembershipFunction(new Coords(33f, 0f), new Coords(40f, 1f), new Coords(45f, 0f));
