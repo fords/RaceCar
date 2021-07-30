@@ -162,16 +162,16 @@ namespace GameAICourse
 
 		private FuzzyRule<SteeringDirection>[] GetDirectionRules()
 		{
-			FuzzyRule<SteeringDirection>[] rules = new FuzzyRule<SteeringDirection>[3];
+			FuzzyRule<SteeringDirection>[] rules = new FuzzyRule<SteeringDirection>[6];
 			// rule 0: if the signed distance from road center negative, turn left
-			//rules[0] = CurrentDirection.Negative.Expr().Then(SteeringDirection.Left);
-			//rules[1] = CurrentDirection.Middle.Expr().Then(SteeringDirection.Middle); //mid
-			//rules[2] = CurrentDirection.Positive.Expr().Then(SteeringDirection.Right);
+			rules[0] = CurrentDirection.Negative.Expr().Then(SteeringDirection.Left);
+			rules[1] = CurrentDirection.Middle.Expr().Then(SteeringDirection.Middle); //mid
+			rules[2] = CurrentDirection.Positive.Expr().Then(SteeringDirection.Right);
 
-			rules[0] = NearState.Left.Expr().Then(SteeringDirection.Left); // if curve ahead near is left , turn left
-			rules[1] = NearState.Middle.Expr().Then(SteeringDirection.Middle);
+			rules[3] = NearState.Left.Expr().Then(SteeringDirection.Left); // if curve ahead near is left , turn left
+			rules[4] = NearState.Middle.Expr().Then(SteeringDirection.Middle);
 
-			rules[2] =  NearState.Right.Expr().Then(SteeringDirection.Right);
+			rules[5] =  NearState.Right.Expr().Then(SteeringDirection.Right);
 
 			//rules[6] = NearState.Right.Expr().And(FutureState.Right.Expr()).Then(SteeringDirection.Right); // if curve ahead in 2 secs is right, turn  right
 			
