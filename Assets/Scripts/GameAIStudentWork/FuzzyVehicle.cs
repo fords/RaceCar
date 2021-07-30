@@ -306,7 +306,7 @@ namespace GameAICourse
 
 			//Debug.Log("Before calculation speed: " + this.Speed);
 			speedSet.Evaluate(this.Speed, inputs);
-			//Throttle = speedRulesSet.Evaluate(this.Speed, inputs); // throttleRuleSet means speedRuleSet
+			Throttle = speedRulesSet.Evaluate(this.Speed, inputs); // throttleRuleSet means speedRuleSet
 																   //Debug.Log(throttleRuleSet);
 																   //Throttle = throttleRuleSet.Evaluate(this.Speed, inputs);
 																   //Debug.Log("speed: " + Throttle.GetType());
